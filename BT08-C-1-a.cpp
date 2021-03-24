@@ -19,14 +19,115 @@ char *DaoNguoc(char str[])
     *(temp+length)=NULL;
     return temp;
 }
+char * delete_char(char a[],char c)
+{
+    for (int i=0;i<Length(a);i++)
+    {
+
+        if (*(a+i)==c)
+        {
+            for (int j=i;j<Length(a)-1;j++)
+            {
+                *(a+j)=*(a+j+1);
+            }
+            *(a+Length(a) -1) = '\0';
+        }
+
+    }
+    return a;
+
+}
+char * pad_right(char a[],int n)
+{
+    int l=Length(a);
+    if (Length(a)>=n)
+    {
+            return a;
+    }
+    else
+    {
+        char* tmp=new char [Length(a)];
+        for (int i=0;i<l;i++)
+        {
+            *(tmp+i)=*(a+i);
+        }
+        delete[] a;
+        char * a=new char [n];
+        for (int i=0;i<l;i++)
+        {
+            *(a+i)=*(tmp+i);
+        }
+        for (int i=l;i<n;i++)
+        {
+            *(a+i)=' ';
+        }
+        delete[] tmp;
+    }
+    return a;
+}
+char * pad_left(char a[],int n )
+{
+    int l=Length(a);
+    if (Length(a)>=n)
+    {
+        return a;
+    }
+    else
+    {
+        char * tmp=new char [Length(a)];
+        for (int i=0;i<l;i++)
+        {
+            *(tmp+i)=*(a+i);
+        }
+        delete[] a ;
+        char * a=new char [n];
+        for (int i=0;i<l;i++)
+        {
+            *(a+i)=' ';
+        }
+        for (int i=l;i<=n;i++)
+        {
+            *(a+i)=*(tmp+i-l);
+        }
+        delete[] tmp;
+    }
+    return a;
+}
+char * truncate (char a[],int n)
+{
+    if (Length(a)<=n)
+    {
+        return a;
+    }
+    else
+    {
+        char *tmp=new char [Length(a)];
+        for (int i=0;i<Length(a);i++)
+        {
+            *(tmp+i)=*(a+i);
+
+        }
+        delete[]a;
+        char * a=new char [n];
+        for (int i=0;i<n;i++)
+        {
+            *(a+i)=*(tmp+i);
+        }
+        delete[] tmp;
+
+    }
+    return a;
+}
 int main()
 {
     char a[100];
-
     cin >>a;
 
-    char *ans = DaoNguoc(a);
-    cout <<ans;
 
+   cout <<DaoNguoc(a)<<endl;
+   cout <<delete_char(a,'c')<<endl;
+    cout <<pad_right(a,15)<<endl;
+    cout <<pad_left(a,15)<<endl;
+    cout <<truncate(a,5)<<endl;
     return 0;
 }
